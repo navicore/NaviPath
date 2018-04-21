@@ -13,7 +13,19 @@ A lib for adding implicit [JsonPath](http://jsonpath.com/) functions to Strings
 
 ## UNDER CONSTRUCTION 
 
-## OPS
+# INSTALL
+
+# DSL V1 USAGE
+
+`query path [<RESULT TYPE>] "<JSON PATH>" in "<JSON STRING>"`
+
+```scala
+    // query path [String] "$.name" in """{"name": "Ishmael"}"""
+    val result = query path [String] "$.name" in jsonString
+    result.fold()(assertResult("Ishmael"))
+```
+
+# OPS
 
 ### publish local
 
