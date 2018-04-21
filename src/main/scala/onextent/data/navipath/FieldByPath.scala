@@ -12,7 +12,7 @@ object FieldByPath extends LazyLogging {
       .query(path, json)
       .right
       .map(_.toVector.toSeq) match {
-      case Right(ids) if ids.nonEmpty => Some[T](ids.head.asInstanceOf[T])
+      case Right(ids) => ids.headOption.asInstanceOf[Option[T]]
       case _          => None
     }
 
