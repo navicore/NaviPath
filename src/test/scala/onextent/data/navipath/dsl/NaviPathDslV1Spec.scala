@@ -1,5 +1,6 @@
 package onextent.data.navipath.dsl
 
+import onextent.data.navipath.dsl.NaviPathDslV1._
 import com.typesafe.scalalogging.LazyLogging
 import org.scalatest._
 
@@ -11,7 +12,6 @@ class NaviPathDslV1Spec extends FlatSpec with LazyLogging {
 
   "A jsonpath" should "find a string" in {
 
-    import onextent.data.navipath.dsl.NaviPathDslV1._
     val result = query path [String] "$.widget.debug" in jsonString
 
     assert(result.nonEmpty)
@@ -22,7 +22,6 @@ class NaviPathDslV1Spec extends FlatSpec with LazyLogging {
 
   "A jsonpath" should "find an int" in {
 
-    import onextent.data.navipath.dsl.NaviPathDslV1._
     val result = query path [Int] "$.widget.window.height" in jsonString
 
     assert(result.nonEmpty)
