@@ -20,7 +20,8 @@ A lib for adding implicit [JsonPath](http://jsonpath.com/) functions to Strings
 `query path [<RESULT TYPE>] "<JSON PATH>" in "<JSON STRING>"`
 
 ```scala
-    // query path [String] "$.name" in """{"name": "Ishmael"}"""
+    val jsonString = """{"name": "Ishmael"}"""
+    import onextent.data.navipath.dsl.NaviPathDslV1._
     val result = query path [String] "$.name" in jsonString
     result.fold()(assertResult("Ishmael"))
 ```
