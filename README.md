@@ -13,9 +13,9 @@ A lib for adding implicit [JsonPath](http://jsonpath.com/) functions to Strings
 
 ## UNDER CONSTRUCTION 
 
-# INSTALL
+## INSTALL
 
-# DSL V1 USAGE
+## DSL V1 USAGE
 
 `query path [<RESULT TYPE>] "<JSON PATH>" in "<JSON STRING>"`
 
@@ -25,7 +25,7 @@ A lib for adding implicit [JsonPath](http://jsonpath.com/) functions to Strings
     result.fold()(assertResult("Ishmael"))
 ```
 
-# OPS
+## OPS
 
 ### publish local
 
