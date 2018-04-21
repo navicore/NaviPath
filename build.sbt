@@ -13,12 +13,11 @@ javaOptions in test ++= Seq(
 
 parallelExecution in test := false
 
-version := "0.1.0"
+version := "0.1.1"
 
 val scala212 = "2.12.4"
-val scala211 = "2.11.12"
 
-crossScalaVersions := Seq(scala212, scala211)
+crossScalaVersions := Seq(scala212)
 
 publishMavenStyle := true
 
