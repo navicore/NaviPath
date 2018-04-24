@@ -2,7 +2,7 @@ package onextent.data.navipath.dsl
 
 import onextent.data.navipath.FieldByPath
 
-// get path [String] "$.name" in """{"name": "Ishmael"}"""
+// query path [String] "$.name" in """{"name": "Ishmael"}"""
 
 object NaviPathDslV1 {
   val query: Query.type = Query

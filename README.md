@@ -33,6 +33,15 @@ libraryDependencies += "tech.navicore" %% "navipath" % "0.1.1"
     result.fold()(assertResult("Ishmael"))
 ```
 
+## DSL V2 USAGE
+
+```scala
+    val jsonString = """{"name": "Ishmael"}"""
+    import onextent.data.navipath.dsl.NaviPathDslV2._
+    val result = jsonString.query[String]("$.name")
+    result.fold()(assertResult("Ishmael"))
+```
+
 ## OPS
 
 ### publish local
