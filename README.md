@@ -7,19 +7,13 @@ NaviPath
 A lib for adding implicit [JsonPath](http://jsonpath.com/) functions to Strings
 ======
 
-## UNDER CONSTRUCTION 
-
-## UNDER CONSTRUCTION 
-
-## UNDER CONSTRUCTION 
-
 ## INSTALL
 
 * for scala 2.12+ only
 
 ```
 // https://mvnrepository.com/artifact/tech.navicore/navipath
-libraryDependencies += "tech.navicore" %% "navipath" % "0.1.3"
+libraryDependencies += "tech.navicore" %% "navipath" % "0.1.5"
 ```
 
 ## DSL V1 USAGE
