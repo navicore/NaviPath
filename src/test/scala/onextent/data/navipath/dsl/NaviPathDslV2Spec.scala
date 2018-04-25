@@ -28,6 +28,24 @@ class NaviPathDslV2Spec extends FlatSpec with LazyLogging {
 
   }
 
+  "An obj" should "handle long query" in {
+
+    val height = jsonString.query[Long]("$.widget.lval")
+
+    assert(height.nonEmpty)
+    height.fold()(assertResult(110000000))
+
+  }
+
+  "An obj" should "handle double query" in {
+
+    val height = jsonString.query[Long]("$.widget.dval")
+
+    assert(height.nonEmpty)
+    height.fold()(assertResult(11.123))
+
+  }
+
   "An obj" should "handle string query" in {
 
     val result = jsonString.query[String]("$.widget.debug")

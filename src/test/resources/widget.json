@@ -1,5 +1,7 @@
 {"widget": {
   "debug": "on",
+  "lval": 110000000,
+  "dval": 11.123,
   "window": {
     "title": "Sample Konfabulator Widget",
     "name": "main_window",

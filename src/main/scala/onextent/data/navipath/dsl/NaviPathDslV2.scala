@@ -30,21 +30,21 @@ object NaviPathSyntax {
       FieldsByPath[String](value, path) match {
         case l: List[String] if l.isEmpty => None
         case l: List[String]              => Some(l)
-    } // ugh, don't wrap List with Option
+    }
 
   implicit val intListWriter: NaviPathWriter[String, List[Int]] =
     (value: String, path: String) =>
       FieldsByPath[Int](value, path) match {
         case l: List[Int] if l.isEmpty => None
         case l: List[Int]              => Some(l)
-      } // ugh, don't wrap List with Option
+      }
 
   implicit val doubleListWriter: NaviPathWriter[String, List[Double]] =
     (value: String, path: String) =>
       FieldsByPath[Double](value, path) match {
         case l: List[Double] if l.isEmpty => None
         case l: List[Double]              => Some(l)
-      } // ugh, don't wrap List with Option
+      }
 
   // syntax ifc
 

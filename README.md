@@ -35,11 +35,23 @@ libraryDependencies += "tech.navicore" %% "navipath" % "0.1.2"
 
 ## DSL V2 USAGE
 
+First match support:
+
 ```scala
     val jsonString = """{"name": "Ishmael"}"""
     import onextent.data.navipath.dsl.NaviPathDslV2._
     val result = jsonString.query[String]("$.name")
     result.fold()(assertResult("Ishmael"))
+```
+
+Multiple matches support:
+
+```scala
+    val jsonString = """[{"name": "Ishmael"}, {"name": "Mud"}]"""
+    import onextent.data.navipath.dsl.NaviPathDslV2._
+    val results = jsonString.query[List[String]]("$.widget.stuff[*].name")
+    results.fold()(r => assert(r.head == "Ishmael"))
+    results.fold()(r => assert(r(1) == "Mud"))
 ```
 
 ## OPS
