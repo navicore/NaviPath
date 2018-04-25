@@ -26,11 +26,13 @@
   "stuff": [
     {
       "name": "one",
-      "value": 1
+      "value": 1,
+      "dvalue": 11.01
     },
     {
       "name": "two",
-      "value": 2
+      "value": 2,
+      "dvalue": 22.0
     }
   ]
 }}

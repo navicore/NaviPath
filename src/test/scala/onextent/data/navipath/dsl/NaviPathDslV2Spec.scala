@@ -37,4 +37,37 @@ class NaviPathDslV2Spec extends FlatSpec with LazyLogging {
 
   }
 
+  "An obj" should "handle list of strings query" in {
+
+    val results = jsonString.query[List[String]]("$.widget.stuff[*].name")
+
+    assert(results.nonEmpty)
+    results.fold()(r => assert(r.length == 2))
+    results.fold()(r => assert(r.head == "one"))
+    results.fold()(r => assert(r(1) == "two"))
+
+  }
+
+  "An obj" should "handle list of int query" in {
+
+    val results = jsonString.query[List[Int]]("$.widget.stuff[*].value")
+
+    assert(results.nonEmpty)
+    results.fold()(r => assert(r.length == 2))
+    results.fold()(r => assert(r.head == 1))
+    results.fold()(r => assert(r(1) == 2))
+
+  }
+
+  "An obj" should "handle list of doubles query" in {
+
+    val results = jsonString.query[List[Double]]("$.widget.stuff[*].dvalue")
+
+    assert(results.nonEmpty)
+    results.fold()(r => assert(r.length == 2))
+    results.fold()(r => assert(r.head == 11.01))
+    results.fold()(r => assert(r(1) == 22.0))
+
+  }
+
 }
