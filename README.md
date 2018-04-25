@@ -49,8 +49,8 @@ Multiple matches support:
 Parse once, query many times support:
 ```scala
 val jsonString = """{"stuff": [{"name": "Ishmael", "id": 1}, {"name": "Mud", "id": 2}]}"""
-val parsedJson = jsonString.asJson
 import onextent.data.navipath.dsl.NaviPathDslV2._
+val parsedJson = jsonString.asJson
 val names = parsedJson.query[List[String]]("$.stuff[*].name")
 val ids = parsedJson.query[List[Int]]("$.stuff[*].value")
 ...
