@@ -19,7 +19,7 @@ A lib for adding implicit [JsonPath](http://jsonpath.com/) functions to Strings
 
 ```
 // https://mvnrepository.com/artifact/tech.navicore/navipath
-libraryDependencies += "tech.navicore" %% "navipath" % "0.1.2"
+libraryDependencies += "tech.navicore" %% "navipath" % "0.1.3"
 ```
 
 ## DSL V1 USAGE
@@ -68,5 +68,4 @@ sbt +publishLocalSigned
 sbt +publishSigned
 sbt sonatypeReleaseAll
 ```
-
 
