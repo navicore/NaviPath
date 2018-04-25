@@ -16,30 +16,37 @@ object NaviPathSyntax {
 
   // obj ifc
 
-  implicit val stringWriter: NaviPathWriter[String, String] =
+  implicit val stringStringWriter: NaviPathWriter[String, String] =
     (value: String, path: String) => FieldByPath[String](value, path)
 
-  implicit val intWriter: NaviPathWriter[String, Int] =
+  implicit val intStringWriter: NaviPathWriter[String, Int] =
     (value: String, path: String) => FieldByPath[Int](value, path)
 
-  implicit val longWriter: NaviPathWriter[String, Long] =
+  implicit val longStringWriter: NaviPathWriter[String, Long] =
     (value: String, path: String) => FieldByPath[Long](value, path)
 
-  implicit val stringListWriter: NaviPathWriter[String, List[String]] =
+  implicit val stringListStringWriter: NaviPathWriter[String, List[String]] =
     (value: String, path: String) =>
       FieldsByPath[String](value, path) match {
         case l: List[String] if l.isEmpty => None
         case l: List[String]              => Some(l)
     }
 
-  implicit val intListWriter: NaviPathWriter[String, List[Int]] =
+  implicit val intListStringWriter: NaviPathWriter[String, List[Int]] =
     (value: String, path: String) =>
       FieldsByPath[Int](value, path) match {
         case l: List[Int] if l.isEmpty => None
         case l: List[Int]              => Some(l)
       }
 
-  implicit val doubleListWriter: NaviPathWriter[String, List[Double]] =
+  implicit val longListStringWriter: NaviPathWriter[String, List[Long]] =
+    (value: String, path: String) =>
+      FieldsByPath[Long](value, path) match {
+        case l: List[Long] if l.isEmpty => None
+        case l: List[Long]              => Some(l)
+      }
+
+  implicit val doubleListStringWriter: NaviPathWriter[String, List[Double]] =
     (value: String, path: String) =>
       FieldsByPath[Double](value, path) match {
         case l: List[Double] if l.isEmpty => None
