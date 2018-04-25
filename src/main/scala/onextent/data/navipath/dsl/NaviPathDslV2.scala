@@ -1,64 +1,113 @@
 package onextent.data.navipath.dsl
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import onextent.data.navipath.{FieldByPath, FieldsByPath}
 
-trait NaviPathWriter[A, B] {
-  def write(value: A, path: String): Option[B]
+trait JsonWriter[A] {
+  def write(value: A): Object
+}
+
+trait NaviPathQuery[A, B] {
+  def execute(value: A, path: String): Option[B]
 }
 
 object NaviPath {
   def query[A, B](value: A, path: String)(
-      implicit w: NaviPathWriter[A, B]): Option[B] =
-    w.write(value, path)
+      implicit w: NaviPathQuery[A, B]): Option[B] =
+    w.execute(value, path)
 }
 
 object NaviPathSyntax {
 
   // obj ifc
 
-  implicit val stringStringWriter: NaviPathWriter[String, String] =
+  implicit val stringStringQuery: NaviPathQuery[String, String] =
     (value: String, path: String) => FieldByPath[String](value, path)
+  implicit val stringObjectQuery: NaviPathQuery[Object, String] =
+    (value: Object, path: String) => FieldByPath[String](value, path)
+//  implicit val objectObjectQuery: NaviPathQuery[Object, Object] =
+//    (value: Object, path: String) => FieldByPath[Object](value, path)
 
-  implicit val intStringWriter: NaviPathWriter[String, Int] =
+  implicit val intStringQuery: NaviPathQuery[String, Int] =
     (value: String, path: String) => FieldByPath[Int](value, path)
+  implicit val intObjectQuery: NaviPathQuery[Object, Int] =
+    (value: Object, path: String) => FieldByPath[Int](value, path)
 
-  implicit val longStringWriter: NaviPathWriter[String, Long] =
+  implicit val longStringQuery: NaviPathQuery[String, Long] =
     (value: String, path: String) => FieldByPath[Long](value, path)
+  implicit val longObjectQuery: NaviPathQuery[Object, Long] =
+    (value: Object, path: String) => FieldByPath[Long](value, path)
 
-  implicit val stringListStringWriter: NaviPathWriter[String, List[String]] =
+  implicit val doubleStringQuery: NaviPathQuery[String, Double] =
+    (value: String, path: String) => FieldByPath[Double](value, path)
+  implicit val doubleObjectQuery: NaviPathQuery[Object, Double] =
+    (value: Object, path: String) => FieldByPath[Double](value, path)
+
+  implicit val stringListStringQuery: NaviPathQuery[String, List[String]] =
     (value: String, path: String) =>
       FieldsByPath[String](value, path) match {
         case l: List[String] if l.isEmpty => None
         case l: List[String]              => Some(l)
     }
+  implicit val stringListObjectQuery: NaviPathQuery[Object, List[String]] =
+    (value: Object, path: String) =>
+      FieldsByPath[String](value, path) match {
+        case l: List[String] if l.isEmpty => None
+        case l: List[String]              => Some(l)
+    }
 
-  implicit val intListStringWriter: NaviPathWriter[String, List[Int]] =
+  implicit val intListStringQuery: NaviPathQuery[String, List[Int]] =
     (value: String, path: String) =>
       FieldsByPath[Int](value, path) match {
         case l: List[Int] if l.isEmpty => None
         case l: List[Int]              => Some(l)
-      }
+    }
+  implicit val intListObjectQuery: NaviPathQuery[Object, List[Int]] =
+    (value: Object, path: String) =>
+      FieldsByPath[Int](value, path) match {
+        case l: List[Int] if l.isEmpty => None
+        case l: List[Int]              => Some(l)
+    }
 
-  implicit val longListStringWriter: NaviPathWriter[String, List[Long]] =
+  implicit val longListStringQuery: NaviPathQuery[String, List[Long]] =
     (value: String, path: String) =>
       FieldsByPath[Long](value, path) match {
         case l: List[Long] if l.isEmpty => None
         case l: List[Long]              => Some(l)
-      }
+    }
+  implicit val longListObjectQuery: NaviPathQuery[Object, List[Long]] =
+    (value: Object, path: String) =>
+      FieldsByPath[Long](value, path) match {
+        case l: List[Long] if l.isEmpty => None
+        case l: List[Long]              => Some(l)
+    }
 
-  implicit val doubleListStringWriter: NaviPathWriter[String, List[Double]] =
+  implicit val doubleListStringQuery: NaviPathQuery[String, List[Double]] =
     (value: String, path: String) =>
       FieldsByPath[Double](value, path) match {
         case l: List[Double] if l.isEmpty => None
         case l: List[Double]              => Some(l)
-      }
+    }
+  implicit val doubleListObjectQuery: NaviPathQuery[Object, List[Double]] =
+    (value: Object, path: String) =>
+      FieldsByPath[Double](value, path) match {
+        case l: List[Double] if l.isEmpty => None
+        case l: List[Double]              => Some(l)
+    }
+
+  // for parsed JsonObject form of Json
+
+  implicit val stringJsonWriter: JsonWriter[String] =
+    (data: String) => (new ObjectMapper).readValue(data, classOf[Object])
 
   // syntax ifc
 
   implicit class NaviPathWriterOps[A](value: A) {
 
-    def query[B](path: String)(implicit w: NaviPathWriter[A, B]): Option[B] =
-      w.write(value, path)
+    def query[B](path: String)(implicit w: NaviPathQuery[A, B]): Option[B] =
+      w.execute(value, path)
+
+    def asJson(implicit w: JsonWriter[A]): Object = w.write(value)
 
   }
 

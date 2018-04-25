@@ -20,7 +20,7 @@ object FieldsByPath extends LazyLogging {
 
   def apply[T](data: String, path: String): List[T] = {
 
-    val json = (new ObjectMapper).readValue(data, classOf[Object])
+    val json: Object = (new ObjectMapper).readValue(data, classOf[Object])
 
     apply[T](json, path)
 

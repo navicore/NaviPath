@@ -88,4 +88,34 @@ class NaviPathDslV2Spec extends FlatSpec with LazyLogging {
 
   }
 
+  "An obj" should "parse" in {
+
+    val results = jsonString.asJson
+
+    assert(results.getClass.getName == "java.util.LinkedHashMap")
+
+  }
+
+  "A parsed obj" should "be able to be queried multiple times" in {
+
+    val parsedJson = jsonString.asJson
+
+    val height = parsedJson.query[Int]("$.widget.window.height")
+    assert(height.nonEmpty)
+    height.fold()(assertResult(500))
+
+    val result = parsedJson.query[String]("$.widget.debug")
+    assert(result.nonEmpty)
+    result.fold()(assertResult("on"))
+
+    val results = parsedJson.query[List[String]]("$.widget.stuff[*].name")
+    assert(results.nonEmpty)
+    results.fold()(r => assert(r.length == 2))
+    results.fold()(r => assert(r.headOption.contains("one")))
+
+    val obj = parsedJson.query[String]("$.widget.debug")
+    assert(results.nonEmpty)
+    obj.fold()(r => assert(r.equals("on"), r))
+  }
+
 }
