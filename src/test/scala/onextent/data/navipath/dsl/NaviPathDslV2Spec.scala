@@ -61,7 +61,7 @@ class NaviPathDslV2Spec extends FlatSpec with LazyLogging {
 
     assert(results.nonEmpty)
     results.fold()(r => assert(r.length == 2))
-    results.fold()(r => assert(r.head == "one"))
+    results.fold()(r => assert(r.headOption.contains("one")))
     results.fold()(r => assert(r(1) == "two"))
 
   }
@@ -72,7 +72,7 @@ class NaviPathDslV2Spec extends FlatSpec with LazyLogging {
 
     assert(results.nonEmpty)
     results.fold()(r => assert(r.length == 2))
-    results.fold()(r => assert(r.head == 1))
+    results.fold()(r => assert(r.headOption.contains(1)))
     results.fold()(r => assert(r(1) == 2))
 
   }
@@ -83,7 +83,7 @@ class NaviPathDslV2Spec extends FlatSpec with LazyLogging {
 
     assert(results.nonEmpty)
     results.fold()(r => assert(r.length == 2))
-    results.fold()(r => assert(r.head == 11.01))
+    results.fold()(r => assert(r.headOption.contains(11.01)))
     results.fold()(r => assert(r(1) == 22.0))
 
   }
