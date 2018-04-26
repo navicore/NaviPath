@@ -7,6 +7,8 @@ NaviPath
 A lib for adding implicit [JsonPath](http://jsonpath.com/) functions to Strings
 ======
 
+See http://goessner.net/articles/JsonPath/ for path documentation.
+
 ## INSTALL
 
 * for scala 2.12+ only
@@ -16,7 +18,11 @@ A lib for adding implicit [JsonPath](http://jsonpath.com/) functions to Strings
 libraryDependencies += "tech.navicore" %% "navipath" % "0.1.5"
 ```
 
-## DSL V1 USAGE
+## USAGE
+
+See http://goessner.net/articles/JsonPath/ for JsonPath documentation.
+
+### DSL V1 USAGE
 
 `query path [<RESULT TYPE>] "<JSON PATH>" in "<JSON STRING>"`
 
@@ -27,7 +33,7 @@ libraryDependencies += "tech.navicore" %% "navipath" % "0.1.5"
     result.fold()(assertResult("Ishmael"))
 ```
 
-## DSL V2 USAGE
+### DSL V2 USAGE
 
 Examples where "\<json\>" is a valid json string or parsed output from `.asJson`:
 ```scala
