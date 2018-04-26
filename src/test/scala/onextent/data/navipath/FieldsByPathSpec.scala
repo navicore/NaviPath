@@ -11,7 +11,7 @@ class FieldsByPathSpec extends FlatSpec with LazyLogging {
 
   "stuff" should "have names " in {
     val names: Option[List[String]] = FieldsByPath[String](jsonString, "$.widget.stuff[*].name")
-    assert(names.get === List("one", "two"))
+    assert(names.contains(List("one", "two")))
   }
 
 }
