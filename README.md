@@ -29,6 +29,14 @@ libraryDependencies += "tech.navicore" %% "navipath" % "0.1.5"
 
 ## DSL V2 USAGE
 
+Examples where "<json>" is a valid json string or parsed output from `.asJson`:
+```scala
+    "<json>".query[String]("$.name")
+    "<json>".query[Long]("$.widget.window.height")
+    "<json>".query[List[String]]("$.stuff[*].name")
+    "<json>".query[List[Int]]("$.stuff[*].value")
+```
+
 First match support:
 ```scala
     val jsonString = """{"name": "Ishmael"}"""
