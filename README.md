@@ -22,7 +22,7 @@ libraryDependencies += "tech.navicore" %% "navipath" % "0.1.5"
 
 ```scala
     val jsonString = """{"name": "Ishmael"}"""
-    import onextent.data.navipath.dsl.NaviPathDslV1._
+    import onextent.data.navipath.dsl.V1._
     val result = query path [String] "$.name" in jsonString
     result.fold()(assertResult("Ishmael"))
 ```
@@ -32,7 +32,7 @@ libraryDependencies += "tech.navicore" %% "navipath" % "0.1.5"
 First match support:
 ```scala
     val jsonString = """{"name": "Ishmael"}"""
-    import onextent.data.navipath.dsl.NaviPathDslV2._
+    import onextent.data.navipath.dsl.V2._
     val result = jsonString.query[String]("$.name")
     result.fold()(assertResult("Ishmael"))
 ```
@@ -40,7 +40,7 @@ First match support:
 Multiple matches support:
 ```scala
     val jsonString = """{"stuff": [{"name": "Ishmael"}, {"name": "Mud"}]}"""
-    import onextent.data.navipath.dsl.NaviPathDslV2._
+    import onextent.data.navipath.dsl.V2._
     val results = jsonString.query[List[String]]("$.stuff[*].name")
     results.fold()(r => assert(r.head == "Ishmael"))
     results.fold()(r => assert(r(1) == "Mud"))
@@ -48,13 +48,13 @@ Multiple matches support:
 
 Parse once, query many times support:
 ```scala
-val jsonString = """{"stuff": [{"name": "Ishmael", "id": 1}, {"name": "Mud", "id": 2}]}"""
-import onextent.data.navipath.dsl.NaviPathDslV2._
-val parsedJson = jsonString.asJson
-val names = parsedJson.query[List[String]]("$.stuff[*].name")
-val ids = parsedJson.query[List[Int]]("$.stuff[*].value")
-...
-...
+    val jsonString = """{"stuff": [{"name": "Ishmael", "id": 1}, {"name": "Mud", "id": 2}]}"""
+    import onextent.data.navipath.dsl.V2._
+    val parsedJson = jsonString.asJson
+    val names = parsedJson.query[List[String]]("$.stuff[*].name")
+    val ids = parsedJson.query[List[Int]]("$.stuff[*].value")
+    ...
+    ...
 ```
 
 

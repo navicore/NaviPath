@@ -6,7 +6,7 @@ import org.scalatest._
 
 import scala.io.Source
 
-class NaviPathDslV1Spec extends FlatSpec with LazyLogging {
+class V1Spec extends FlatSpec with LazyLogging {
 
   val jsonString: String = Source.fromResource("widget.json").mkString
 
