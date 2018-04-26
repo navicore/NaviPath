@@ -25,8 +25,6 @@ object NaviPathSyntax {
     (value: String, path: String) => FieldByPath[String](value, path)
   implicit val stringObjectQuery: NaviPathQuery[Object, String] =
     (value: Object, path: String) => FieldByPath[String](value, path)
-//  implicit val objectObjectQuery: NaviPathQuery[Object, Object] =
-//    (value: Object, path: String) => FieldByPath[Object](value, path)
 
   implicit val intStringQuery: NaviPathQuery[String, Int] =
     (value: String, path: String) => FieldByPath[Int](value, path)
@@ -45,55 +43,31 @@ object NaviPathSyntax {
 
   implicit val stringListStringQuery: NaviPathQuery[String, List[String]] =
     (value: String, path: String) =>
-      FieldsByPath[String](value, path) match {
-        case l: List[String] if l.isEmpty => None
-        case l: List[String]              => Some(l)
-    }
+      FieldsByPath[String](value, path)
   implicit val stringListObjectQuery: NaviPathQuery[Object, List[String]] =
     (value: Object, path: String) =>
-      FieldsByPath[String](value, path) match {
-        case l: List[String] if l.isEmpty => None
-        case l: List[String]              => Some(l)
-    }
+      FieldsByPath[String](value, path)
 
   implicit val intListStringQuery: NaviPathQuery[String, List[Int]] =
     (value: String, path: String) =>
-      FieldsByPath[Int](value, path) match {
-        case l: List[Int] if l.isEmpty => None
-        case l: List[Int]              => Some(l)
-    }
+      FieldsByPath[Int](value, path)
   implicit val intListObjectQuery: NaviPathQuery[Object, List[Int]] =
     (value: Object, path: String) =>
-      FieldsByPath[Int](value, path) match {
-        case l: List[Int] if l.isEmpty => None
-        case l: List[Int]              => Some(l)
-    }
+      FieldsByPath[Int](value, path)
 
   implicit val longListStringQuery: NaviPathQuery[String, List[Long]] =
     (value: String, path: String) =>
-      FieldsByPath[Long](value, path) match {
-        case l: List[Long] if l.isEmpty => None
-        case l: List[Long]              => Some(l)
-    }
+      FieldsByPath[Long](value, path)
   implicit val longListObjectQuery: NaviPathQuery[Object, List[Long]] =
     (value: Object, path: String) =>
-      FieldsByPath[Long](value, path) match {
-        case l: List[Long] if l.isEmpty => None
-        case l: List[Long]              => Some(l)
-    }
+      FieldsByPath[Long](value, path)
 
   implicit val doubleListStringQuery: NaviPathQuery[String, List[Double]] =
     (value: String, path: String) =>
-      FieldsByPath[Double](value, path) match {
-        case l: List[Double] if l.isEmpty => None
-        case l: List[Double]              => Some(l)
-    }
+      FieldsByPath[Double](value, path)
   implicit val doubleListObjectQuery: NaviPathQuery[Object, List[Double]] =
     (value: Object, path: String) =>
-      FieldsByPath[Double](value, path) match {
-        case l: List[Double] if l.isEmpty => None
-        case l: List[Double]              => Some(l)
-    }
+      FieldsByPath[Double](value, path)
 
   // for parsed JsonObject form of Json
 
