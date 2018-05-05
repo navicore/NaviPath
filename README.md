@@ -37,6 +37,7 @@ See http://goessner.net/articles/JsonPath/ for JsonPath documentation.
 
 Examples where "\<json\>" is a valid json string or parsed output from `.asJson`:
 ```scala
+    import NaviPathSyntax._
     "<json>".query[String]("$.name")
     "<json>".query[Long]("$.widget.window.height")
     "<json>".query[List[String]]("$.stuff[*].name")
