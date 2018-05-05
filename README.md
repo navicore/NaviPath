@@ -28,7 +28,7 @@ See http://goessner.net/articles/JsonPath/ for JsonPath documentation.
 
 ```scala
     val jsonString = """{"name": "Ishmael"}"""
-    import onextent.data.navipath.dsl.V1._
+    import onextent.data.navipath.dsl.NaviPathDslV1._
     val result = query path [String] "$.name" in jsonString
     result.fold()(assertResult("Ishmael"))
 ```
@@ -46,7 +46,7 @@ Examples where "\<json\>" is a valid json string or parsed output from `.asJson`
 First match support:
 ```scala
     val jsonString = """{"name": "Ishmael"}"""
-    import onextent.data.navipath.dsl.V2._
+    import NaviPathSyntax._
     val result = jsonString.query[String]("$.name")
     result.fold()(assertResult("Ishmael"))
 ```
@@ -54,7 +54,7 @@ First match support:
 Multiple matches support:
 ```scala
     val jsonString = """{"stuff": [{"name": "Ishmael"}, {"name": "Mud"}]}"""
-    import onextent.data.navipath.dsl.V2._
+    import NaviPathSyntax._
     val results = jsonString.query[List[String]]("$.stuff[*].name")
     results.fold()(r => assert(r.head == "Ishmael"))
     results.fold()(r => assert(r(1) == "Mud"))
@@ -63,7 +63,7 @@ Multiple matches support:
 Parse once, query many times support:
 ```scala
     val jsonString = """{"stuff": [{"name": "Ishmael", "id": 1}, {"name": "Mud", "id": 2}]}"""
-    import onextent.data.navipath.dsl.V2._
+    import NaviPathSyntax._
     val parsedJson = jsonString.asJson
     val names = parsedJson.query[List[String]]("$.stuff[*].name")
     val ids = parsedJson.query[List[Int]]("$.stuff[*].value")
