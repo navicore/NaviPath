@@ -14,7 +14,7 @@ See http://goessner.net/articles/JsonPath/ for path documentation.
 
 ## INSTALL
 
-* for scala 2.12+ only
+* for scala 2.11 and 2.12
 
 ```
 // https://mvnrepository.com/artifact/tech.navicore/navipath
