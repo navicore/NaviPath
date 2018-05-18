@@ -1,14 +1,16 @@
 package onextent.data.navipath.dsl
 
-import com.typesafe.scalalogging.LazyLogging
+import java.io.InputStream
+
 import org.scalatest._
 import NaviPathSyntax._
 
 import scala.io.Source
 
-class V2Spec extends FlatSpec with LazyLogging {
+class V2Spec extends FlatSpec {
 
-  val jsonString: String = Source.fromResource("widget.json").mkString
+  val stream : InputStream = getClass.getResourceAsStream("/widget.json")
+  val jsonString: String = Source.fromInputStream(stream).mkString
 
   "An obj" should "work with query" in {
 
@@ -116,6 +118,7 @@ class V2Spec extends FlatSpec with LazyLogging {
     val obj = parsedJson.query[String]("$.widget.debug")
     assert(results.nonEmpty)
     obj.fold()(r => assert(r.equals("on"), r))
+
   }
 
 }

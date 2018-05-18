@@ -13,11 +13,15 @@ javaOptions in test ++= Seq(
 
 parallelExecution in test := false
 
+scalaVersion := "2.11.8"
+//scalaVersion := "2.12.4"
+
 version := "0.1.7"
 
+val scala211 = "2.11.8"
 val scala212 = "2.12.4"
 
-crossScalaVersions := Seq(scala212)
+crossScalaVersions := Seq(scala211, scala212)
 
 publishMavenStyle := true
 
@@ -66,13 +70,10 @@ publishTo := Some(
 libraryDependencies ++=
   Seq(
 
-    "ch.qos.logback" % "logback-classic" % "1.1.7",
-    "com.typesafe" % "config" % "1.3.3",
-    "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
-
     "com.fasterxml.jackson.core" % "jackson-databind" % "2.8.11.1",
     "com.fasterxml.jackson.core" % "jackson-annotations" % "2.8.11",
-    "io.gatling" %% "jsonpath" % "0.6.11",
+    
+    "org.scala-lang.modules" %% "scala-parser-combinators"  % "1.1.0",
 
     "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 

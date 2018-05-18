@@ -1,14 +1,16 @@
 package onextent.data.navipath.dsl
 
+import java.io.InputStream
+
 import onextent.data.navipath.dsl.NaviPathDslV1._
-import com.typesafe.scalalogging.LazyLogging
 import org.scalatest._
 
 import scala.io.Source
 
-class V1Spec extends FlatSpec with LazyLogging {
+class V1Spec extends FlatSpec {
 
-  val jsonString: String = Source.fromResource("widget.json").mkString
+  val stream : InputStream = getClass.getResourceAsStream("/widget.json")
+  val jsonString: String = Source.fromInputStream(stream).mkString
 
   "A jsonpath" should "find a string" in {
 

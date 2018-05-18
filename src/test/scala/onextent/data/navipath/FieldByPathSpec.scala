@@ -1,13 +1,15 @@
 package onextent.data.navipath
 
-import com.typesafe.scalalogging.LazyLogging
+import java.io.InputStream
+
 import org.scalatest._
 
 import scala.io.Source
 
-class FieldByPathSpec extends FlatSpec with LazyLogging {
+class FieldByPathSpec extends FlatSpec {
 
-  val jsonString: String = Source.fromResource("widget.json").mkString
+  val stream : InputStream = getClass.getResourceAsStream("/widget.json")
+  val jsonString: String = Source.fromInputStream(stream).mkString
 
   "Root" should "not have debug " in {
     val debugField = FieldByPath[String](jsonString, "$.debug")

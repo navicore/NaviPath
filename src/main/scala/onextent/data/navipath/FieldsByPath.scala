@@ -1,10 +1,9 @@
 package onextent.data.navipath
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.typesafe.scalalogging.LazyLogging
-import io.gatling.jsonpath.JsonPath
+import onextent.data.jsonpath.JsonPath
 
-object FieldsByPath extends LazyLogging {
+object FieldsByPath {
 
   def apply[T](json: Object, path: String): Option[List[T]] = {
 
