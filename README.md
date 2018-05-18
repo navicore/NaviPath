@@ -14,11 +14,11 @@ See http://goessner.net/articles/JsonPath/ for path documentation.
 
 ## INSTALL
 
-* for scala 2.11 and 2.12
+* for scala 2.11 (as of version 0.2.0) and 2.12
 
 ```
 // https://mvnrepository.com/artifact/tech.navicore/navipath
-libraryDependencies += "tech.navicore" %% "navipath" % "0.1.7"
+libraryDependencies += "tech.navicore" %% "navipath" % "0.1.6"
 ```
 
 ## USAGE
