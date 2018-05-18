@@ -16,7 +16,7 @@ parallelExecution in test := false
 scalaVersion := "2.11.8"
 //scalaVersion := "2.12.4"
 
-version := "0.1.7"
+version := "0.2.0"
 
 val scala211 = "2.11.8"
 val scala212 = "2.12.4"
