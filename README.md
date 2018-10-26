@@ -18,7 +18,7 @@ See http://goessner.net/articles/JsonPath/ for path documentation.
 
 ```
 // https://mvnrepository.com/artifact/tech.navicore/navipath
-libraryDependencies += "tech.navicore" %% "navipath" % "0.2.0"
+libraryDependencies += "tech.navicore" %% "navipath" % "1.0.0"
 ```
 
 ## USAGE
@@ -87,6 +87,7 @@ sbt +publishLocalSigned
 ### publish to nexus staging
 
 ```console
+export GPG_TTY=$(tty)
 sbt +publishSigned
 sbt sonatypeReleaseAll
 ```

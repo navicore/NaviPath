@@ -13,13 +13,10 @@ javaOptions in test ++= Seq(
 
 parallelExecution in test := false
 
-scalaVersion := "2.11.8"
-//scalaVersion := "2.12.4"
+version := "1.0.1"
 
-version := "0.2.1"
-
-val scala211 = "2.11.8"
-val scala212 = "2.12.4"
+val scala211 = "2.11.12"
+val scala212 = "2.12.7"
 
 crossScalaVersions := Seq(scala211, scala212)
 
