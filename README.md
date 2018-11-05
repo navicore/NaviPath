@@ -18,7 +18,7 @@ See http://goessner.net/articles/JsonPath/ for path documentation.
 
 ```
 // https://mvnrepository.com/artifact/tech.navicore/navipath
-libraryDependencies += "tech.navicore" %% "navipath" % "1.0.0"
+libraryDependencies += "tech.navicore" %% "navipath" % "2.0.0"
 ```
 
 ## USAGE
@@ -40,7 +40,7 @@ See http://goessner.net/articles/JsonPath/ for JsonPath documentation.
 
 Examples where "\<json\>" is a valid json string or parsed output from `.asJson`:
 ```scala
-    import NaviPathSyntax._
+    import navicore.data.navipath.dsl.NaviPathSyntax._
     "<json>".query[String]("$.name")
     "<json>".query[Long]("$.widget.window.height")
     "<json>".query[List[String]]("$.stuff[*].name")
@@ -50,7 +50,7 @@ Examples where "\<json\>" is a valid json string or parsed output from `.asJson`
 First match support:
 ```scala
     val jsonString = """{"name": "Ishmael"}"""
-    import NaviPathSyntax._
+    import navicore.data.navipath.dsl.NaviPathSyntax._
     val result = jsonString.query[String]("$.name")
     result.fold()(assertResult("Ishmael"))
 ```
@@ -58,7 +58,7 @@ First match support:
 Multiple matches support:
 ```scala
     val jsonString = """{"stuff": [{"name": "Ishmael"}, {"name": "Mud"}]}"""
-    import NaviPathSyntax._
+    import navicore.data.navipath.dsl.NaviPathSyntax._
     val results = jsonString.query[List[String]]("$.stuff[*].name")
     results.fold()(r => assert(r.head == "Ishmael"))
     results.fold()(r => assert(r(1) == "Mud"))
@@ -67,7 +67,7 @@ Multiple matches support:
 Parse once, query many times support:
 ```scala
     val jsonString = """{"stuff": [{"name": "Ishmael", "id": 1}, {"name": "Mud", "id": 2}]}"""
-    import NaviPathSyntax._
+    import navicore.data.navipath.dsl.NaviPathSyntax._
     val parsedJson = jsonString.asJson
     val names = parsedJson.query[List[String]]("$.stuff[*].name")
     val ids = parsedJson.query[List[Int]]("$.stuff[*].value")

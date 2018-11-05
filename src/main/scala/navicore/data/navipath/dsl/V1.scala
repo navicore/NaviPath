@@ -1,6 +1,6 @@
-package onextent.data.navipath.dsl
+package navicore.data.navipath.dsl
 
-import onextent.data.navipath.FieldByPath
+import navicore.data.navipath.FieldByPath
 
 // query path [String] "$.name" in """{"name": "Ishmael"}"""
 

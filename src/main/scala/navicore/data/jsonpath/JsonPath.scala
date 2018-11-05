@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package onextent.data.jsonpath
+package navicore.data.jsonpath
 
 import java.util.function.Supplier
 import java.util.{List => JList, Map => JMap}
 
-import onextent.data.jsonpath.AST._
+import navicore.data.jsonpath.AST._
 
 import scala.collection.JavaConverters._
 import scala.math.abs

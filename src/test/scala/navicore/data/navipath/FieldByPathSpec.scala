@@ -1,4 +1,4 @@
-package onextent.data.navipath
+package navicore.data.navipath
 
 import java.io.InputStream
 

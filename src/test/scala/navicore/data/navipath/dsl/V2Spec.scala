@@ -1,9 +1,9 @@
-package onextent.data.navipath.dsl
+package navicore.data.navipath.dsl
 
 import java.io.InputStream
 
 import org.scalatest._
-import NaviPathSyntax._
+import navicore.data.navipath.dsl.NaviPathSyntax._
 
 import scala.io.Source
 
@@ -87,6 +87,16 @@ class V2Spec extends FlatSpec {
     results.fold()(r => assert(r.length == 2))
     results.fold()(r => assert(r.headOption.contains(11.01)))
     results.fold()(r => assert(r(1) == 22.0))
+
+  }
+
+  "An obj" should "handle list objects query" in {
+
+    val results: Option[List[Object]] = jsonString.query[List[Object]]("$.widget.stuff[*]")
+
+    assert(results.nonEmpty)
+    assert(results.get.size == 2)
+    assert(results.get.head.query[String]("$.name").contains("one"))
 
   }
 

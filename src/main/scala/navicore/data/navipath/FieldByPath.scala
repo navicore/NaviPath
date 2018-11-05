@@ -1,7 +1,7 @@
-package onextent.data.navipath
+package navicore.data.navipath
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import onextent.data.jsonpath.JsonPath
+import navicore.data.jsonpath.JsonPath
 
 object FieldByPath {
 

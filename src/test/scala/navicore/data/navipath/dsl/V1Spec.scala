@@ -1,8 +1,8 @@
-package onextent.data.navipath.dsl
+package navicore.data.navipath.dsl
 
 import java.io.InputStream
 
-import onextent.data.navipath.dsl.NaviPathDslV1._
+import navicore.data.navipath.dsl.NaviPathDslV1._
 import org.scalatest._
 
 import scala.io.Source

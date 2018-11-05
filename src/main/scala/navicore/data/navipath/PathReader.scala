@@ -1,5 +1,4 @@
-package onextent.data.navipath
-
+package navicore.data.navipath
 
 // under construction
 // under construction
