@@ -31,7 +31,7 @@ See http://goessner.net/articles/JsonPath/ for JsonPath documentation.
 
 ```scala
     val jsonString = """{"name": "Ishmael"}"""
-    import onextent.data.navipath.dsl.NaviPathDslV1._
+    import navicore.data.navipath.dsl.NaviPathDslV1._
     val result = query path [String] "$.name" in jsonString
     result.fold()(assertResult("Ishmael"))
 ```
