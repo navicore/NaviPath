@@ -218,4 +218,7 @@ object Parser extends RegexParsers {
 class Parser {
   private val query = Parser.query
   def compile(jsonpath: String): Parser.ParseResult[List[PathToken]] = Parser.parse(query, jsonpath)
+  def one = () => {
+    compile("haha")
+  }
 }
