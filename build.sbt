@@ -1,4 +1,5 @@
 name := "NaviPath"
+
 organization := "tech.navicore"
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8") 
 scalacOptions ++= Seq(
@@ -13,56 +14,23 @@ javaOptions in test ++= Seq(
 
 parallelExecution in test := false
 
-version := "2.0.0"
-
 val scala211 = "2.11.12"
 val scala212 = "2.12.7"
-
 crossScalaVersions := Seq(scala211, scala212)
 
-publishMavenStyle := true
-
-homepage := Some(url("https://github.com/navicore/NaviPath"))
-
-scmInfo := Some(ScmInfo(url("https://github.com/navicore/NaviPath"),
-                            "git@github.com:navicore/navipath.git"))
-
-developers := List(Developer("navicore",
-                             "Ed Sweeney",
-                             "ed@onextent.com",
-                             url("https://github.com/navicore")))
-licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
-
-import ReleaseTransformations._
-
-releaseCrossBuild := true
-
-releasePublishArtifactsAction := PgpKeys.publishSigned.value // Use publishSigned in publishArtifacts step
-
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  publishArtifacts,
-  setNextVersion,
-  commitNextVersion,
-  releaseStepCommand("sonatypeReleaseAll"),
-  pushChanges
-)
-
-
-sonatypeProfileName := "tech.navicore"
-useGpg := true
-publishTo := Some(
-  if (isSnapshot.value)
-    Opts.resolver.sonatypeSnapshots
-  else
-    Opts.resolver.sonatypeStaging
-)
+inThisBuild(List(
+  organization := "tech.navicore",
+  homepage := Some(url("https://github.com/navicore/navipath")),
+  licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+  developers := List(
+    Developer(
+      "navicore",
+      "Ed Sweeney",
+      "ed@onextent.com",
+      url("https://navicore.tech")
+    )
+  )
+))
 
 libraryDependencies ++=
   Seq(
