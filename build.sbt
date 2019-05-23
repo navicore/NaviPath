@@ -40,7 +40,7 @@ libraryDependencies ++=
     
     "org.scala-lang.modules" %% "scala-parser-combinators"  % "1.1.0",
 
-    "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+    "org.scalatest" %% "scalatest" % "3.0.7" % "test"
 
   )
 
