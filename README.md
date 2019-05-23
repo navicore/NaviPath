@@ -18,7 +18,7 @@ See http://goessner.net/articles/JsonPath/ for path documentation.
 
 ```
 // https://mvnrepository.com/artifact/tech.navicore/navipath
-libraryDependencies += "tech.navicore" %% "navipath" % "2.0.0"
+libraryDependencies += "tech.navicore" %% "navipath" % "2.1.0"
 ```
 
 ## USAGE
