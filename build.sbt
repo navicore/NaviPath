@@ -35,7 +35,7 @@ inThisBuild(List(
 libraryDependencies ++=
   Seq(
 
-    "com.fasterxml.jackson.core" % "jackson-databind" % "2.8.11.3",
+    "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.9",
     "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.9",
     
     "org.scala-lang.modules" %% "scala-parser-combinators"  % "1.1.2",
