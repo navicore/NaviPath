@@ -14,7 +14,7 @@ See http://goessner.net/articles/JsonPath/ for path documentation.
 
 ## INSTALL
 
-* for scala 2.12
+* ongoing dev is for for scala 2.12+
 * if you use scala 2.11 - use version 2.1.0
 
 ```
@@ -26,19 +26,7 @@ libraryDependencies += "tech.navicore" %% "navipath" % "3.0.1"
 
 See http://goessner.net/articles/JsonPath/ for JsonPath documentation.
 
-### DSL V1 USAGE
-
-`query path [<RESULT TYPE>] "<JSON PATH>" in "<JSON STRING>"`
-
-```scala
-    val jsonString = """{"name": "Ishmael"}"""
-    import navicore.data.navipath.dsl.NaviPathDslV1._
-    val result = query path [String] "$.name" in jsonString
-    result should be ('defined)
-    result.fold()(assertResult("Ishmael"))
-```
-
-### DSL V2 USAGE
+### DSL USAGE
 
 Examples where "\<json\>" is a valid json string or parsed output from `.asJson`:
 ```scala
@@ -76,22 +64,5 @@ Parse once, query many times support:
     val ids = parsedJson.query[List[Int]]("$.stuff[*].value")
     ...
     ...
-```
-
-
-## OPS
-
-### publish local
-
-```console
-sbt +publishLocalSigned
-```
-
-### publish to nexus staging
-
-```console
-export GPG_TTY=$(tty)
-sbt +publishSigned
-sbt sonatypeReleaseAll
 ```
 
