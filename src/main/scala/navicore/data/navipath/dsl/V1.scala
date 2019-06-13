@@ -2,6 +2,8 @@ package navicore.data.navipath.dsl
 
 import navicore.data.navipath.FieldByPath
 
+import scala.reflect.ClassTag
+
 // query path [String] "$.name" in """{"name": "Ishmael"}"""
 
 object NaviPathDslV1 {
@@ -9,10 +11,10 @@ object NaviPathDslV1 {
 }
 
 object Query {
-  def path[T](querySpec: String): In[T] = new In[T](querySpec)
+  def path[T: ClassTag](querySpec: String): In[T] = new In[T](querySpec)
 }
 
-class In[T](queryStr: String) {
+class In[T: ClassTag](queryStr: String) {
   def in(jsonString: String): Option[T] = {
     FieldByPath(jsonString, queryStr)
   }

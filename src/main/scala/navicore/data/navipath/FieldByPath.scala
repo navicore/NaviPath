@@ -1,33 +1,54 @@
 package navicore.data.navipath
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import navicore.data.jsonpath.JsonPath
+import com.fasterxml.jackson.databind.node._
+import com.fasterxml.jackson.databind.{JsonNode, ObjectMapper}
+import io.gatling.jsonpath._
+
+import scala.reflect.ClassTag
 
 object FieldByPath {
 
-  def apply[T](json: Object, path: String): Option[T] = {
-
-    JsonPath
-      .query(path, json)
-      .right
-      .map(_.toVector.toSeq) match {
-      case Right(ids) => ids.headOption.asInstanceOf[Option[T]]
-      case _          => None
+  def jsonToBaseType[T](ids: Seq[JsonNode])(implicit ct: ClassTag[T]): Option[T] = {
+    ids match {
+      case ids: Seq[IntNode] if ids.nonEmpty && ids.head.getClass == classOf[IntNode] && ct.runtimeClass == classOf[Int] =>
+        ids.headOption.map(_.asInt().asInstanceOf[T])
+      case ids: Seq[TextNode] if ids.nonEmpty && ids.head.getClass == classOf[TextNode] && ct.runtimeClass == classOf[String] =>
+        ids.headOption.map(_.asText().asInstanceOf[T])
+      case ids: Seq[IntNode] if ids.nonEmpty && ids.head.getClass == classOf[IntNode] && ct.runtimeClass == classOf[Long] =>
+        ids.headOption.map(_.asLong().asInstanceOf[T])
+      case ids: Seq[LongNode] if ids.nonEmpty && ids.head.getClass == classOf[LongNode] && ct.runtimeClass == classOf[Long] =>
+        ids.headOption.map(_.asLong().asInstanceOf[T])
+      case ids: Seq[DoubleNode] if ids.nonEmpty && ids.head.getClass == classOf[DoubleNode] && ct.runtimeClass == classOf[Double] =>
+        ids.headOption.map(_.asDouble().asInstanceOf[T])
+      case _ =>
+        ids.headOption.map(_.asInstanceOf[T])
     }
+  }
+
+  def apply[T: ClassTag](json: JsonNode, path: String): Option[T] = {
+
+    val r: Seq[JsonNode] = JsonPath
+    .query(path, json)
+    .map(_.toVector.toSeq).right.getOrElse(Seq())
+
+    jsonToBaseType[T](r)
 
   }
 
-  def apply[T](data: String, path: String): Option[T] = {
+  val mapper = new ObjectMapper
+  def parseJson(s: String): JsonNode = mapper.readValue(s, classOf[JsonNode])
 
-    val json = (new ObjectMapper).readValue(data, classOf[Object])
+  def apply[T: ClassTag](data: String, path: String): Option[T] = {
+
+    val json: JsonNode = parseJson(data)
 
     apply[T](json, path)
 
   }
 
-  def apply[T](data: String, paths: List[String]): List[Option[T]] = {
+  def apply[T: ClassTag](data: String, paths: List[String]): List[Option[T]] = {
 
-    val json = (new ObjectMapper).readValue(data, classOf[Object])
+    val json: JsonNode = parseJson(data)
 
     paths.map(path => {
 

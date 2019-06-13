@@ -1,0 +1,52 @@
+{
+	"topic": "mytopic",
+	"locid": "999999",
+	"env": {
+		"body": {
+			"Box": {
+				"Category": "Hardware",
+				"ParamOne": {
+					"P1": {
+						"Amount": 0,
+						"good": false
+					},
+					"P2": {
+						"Amount": 10,
+						"good": true
+					},
+					"P3": {
+						"Amount": 0,
+						"good": false
+					},
+					"ETime": 0,
+					"MaxTime": -1,
+					"Name": "abc",
+					"Cycles": 1,
+					"TotalAmount": 45,
+					"UseMe": false,
+					"UseForYou": false,
+					"good": true
+				}
+			},
+			"Bin": {
+				"Result": {
+					"Bin1": {
+						"ETime": 13.487,
+						"AfterAmt": 12.9556,
+						"AfterVal": 7.9981000000000009,
+						"good": true
+					},
+					"Bin2": {
+						"ETime": 0,
+						"AfterAmt": 0,
+						"AfterVal": 0,
+						"good": false
+					}
+				},
+				"Success": true
+			},
+			"name": ""
+		},
+		"version": "1.0.2"
+	}
+}

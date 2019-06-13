@@ -14,11 +14,11 @@ class V1Spec extends FlatSpec {
 
   "A jsonpath" should "find a string" in {
 
-    val result = query path [String] "$.widget.debug" in jsonString
+    val result: Option[String] = query path [String] "$.widget.debug" in jsonString
 
     assert(result.nonEmpty)
 
-    result.fold()(assertResult("on"))
+    result.fold()(x => assertResult("on")(x))
 
   }
 

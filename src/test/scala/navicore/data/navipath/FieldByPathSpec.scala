@@ -17,7 +17,9 @@ class FieldByPathSpec extends FlatSpec {
   }
 
   "Widget" should "debug " in {
-    val debugField: Option[Nothing] = FieldByPath(jsonString, "$.widget.debug")
+    val debugField: Option[String] = FieldByPath[String](jsonString, "$.widget.debug")
+    println(debugField)
+    println(debugField.getClass)
     assert(debugField === Some("on"))
   }
 
