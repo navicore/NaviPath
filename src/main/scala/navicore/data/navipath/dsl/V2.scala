@@ -1,10 +1,12 @@
 package navicore.data.navipath.dsl
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.{JsonNode, ObjectMapper}
 import navicore.data.navipath.{FieldByPath, FieldsByPath}
 
+import scala.reflect.ClassTag
+
 trait JsonWriter[A] {
-  def write(value: A): Object
+  def write(value: A): JsonNode
 }
 
 trait NaviPathQuery[A, B] {
@@ -26,9 +28,9 @@ object NaviPathSyntax {
       override def execute(value: String, path: String): Option[String] =
         FieldByPath[String](value, path)
     }
-  implicit val stringObjectQuery: NaviPathQuery[Object, String] =
-    new NaviPathQuery[Object, String] {
-      override def execute(value: Object, path: String): Option[String] =
+  implicit val stringJsonNodeQuery: NaviPathQuery[JsonNode, String] =
+    new NaviPathQuery[JsonNode, String] {
+      override def execute(value: JsonNode, path: String): Option[String] =
         FieldByPath[String](value, path)
     }
 
@@ -38,9 +40,9 @@ object NaviPathSyntax {
         FieldByPath[Int](value, path)
     }
 
-  implicit val intObjectQuery: NaviPathQuery[Object, Int] =
-    new NaviPathQuery[Object, Int] {
-      override def execute(value: Object, path: String): Option[Int] =
+  implicit val intJsonNodeQuery: NaviPathQuery[JsonNode, Int] =
+    new NaviPathQuery[JsonNode, Int] {
+      override def execute(value: JsonNode, path: String): Option[Int] =
         FieldByPath[Int](value, path)
     }
 
@@ -50,9 +52,9 @@ object NaviPathSyntax {
         FieldByPath[Long](value, path)
     }
 
-  implicit val longObjectQuery: NaviPathQuery[Object, Long] =
-    new NaviPathQuery[Object, Long] {
-      override def execute(value: Object, path: String): Option[Long] =
+  implicit val longJsonNodeQuery: NaviPathQuery[JsonNode, Long] =
+    new NaviPathQuery[JsonNode, Long] {
+      override def execute(value: JsonNode, path: String): Option[Long] =
         FieldByPath[Long](value, path)
     }
 
@@ -62,9 +64,9 @@ object NaviPathSyntax {
         FieldByPath[Double](value, path)
     }
 
-  implicit val doubleObjectQuery: NaviPathQuery[Object, Double] =
-    new NaviPathQuery[Object, Double] {
-      override def execute(value: Object, path: String): Option[Double] =
+  implicit val doubleJsonNodeQuery: NaviPathQuery[JsonNode, Double] =
+    new NaviPathQuery[JsonNode, Double] {
+      override def execute(value: JsonNode, path: String): Option[Double] =
         FieldByPath[Double](value, path)
     }
 
@@ -74,9 +76,9 @@ object NaviPathSyntax {
         FieldsByPath[String](value, path)
     }
 
-  implicit val stringListObjectQuery: NaviPathQuery[Object, List[String]] =
-    new NaviPathQuery[Object, List[String]] {
-      override def execute(value: Object, path: String): Option[List[String]] =
+  implicit val stringListJsonNodeQuery: NaviPathQuery[JsonNode, List[String]] =
+    new NaviPathQuery[JsonNode, List[String]] {
+      override def execute(value: JsonNode, path: String): Option[List[String]] =
         FieldsByPath[String](value, path)
     }
 
@@ -86,9 +88,9 @@ object NaviPathSyntax {
         FieldsByPath[Int](value, path)
     }
 
-  implicit val intListObjectQuery: NaviPathQuery[Object, List[Int]] =
-    new NaviPathQuery[Object, List[Int]] {
-      override def execute(value: Object, path: String): Option[List[Int]] =
+  implicit val intListJsonNodeQuery: NaviPathQuery[JsonNode, List[Int]] =
+    new NaviPathQuery[JsonNode, List[Int]] {
+      override def execute(value: JsonNode, path: String): Option[List[Int]] =
         FieldsByPath[Int](value, path)
     }
 
@@ -98,9 +100,9 @@ object NaviPathSyntax {
         FieldsByPath[Long](value, path)
     }
 
-  implicit val longListObjectQuery: NaviPathQuery[Object, List[Long]] =
-    new NaviPathQuery[Object, List[Long]] {
-      override def execute(value: Object, path: String): Option[List[Long]] =
+  implicit val longListJsonNodeQuery: NaviPathQuery[JsonNode, List[Long]] =
+    new NaviPathQuery[JsonNode, List[Long]] {
+      override def execute(value: JsonNode, path: String): Option[List[Long]] =
         FieldsByPath[Long](value, path)
     }
 
@@ -110,39 +112,39 @@ object NaviPathSyntax {
         FieldsByPath[Double](value, path)
     }
 
-  implicit val doubleListObjectQuery: NaviPathQuery[Object, List[Double]] =
-    new NaviPathQuery[Object, List[Double]] {
-      override def execute(value: Object, path: String): Option[List[Double]] =
+  implicit val doubleListJsonNodeQuery: NaviPathQuery[JsonNode, List[Double]] =
+    new NaviPathQuery[JsonNode, List[Double]] {
+      override def execute(value: JsonNode, path: String): Option[List[Double]] =
         FieldsByPath[Double](value, path)
     }
 
-  implicit val objectListStringQuery: NaviPathQuery[String, List[Object]] =
-    new NaviPathQuery[String, List[Object]] {
-      override def execute(value: String, path: String): Option[List[Object]] =
-        FieldsByPath[Object](value, path)
+  implicit val objectListStringQuery: NaviPathQuery[String, List[JsonNode]] =
+    new NaviPathQuery[String, List[JsonNode]] {
+      override def execute(value: String, path: String): Option[List[JsonNode]] =
+        FieldsByPath[JsonNode](value, path)
     }
 
-  implicit val objectListObjectQuery: NaviPathQuery[Object, List[Object]] =
-    new NaviPathQuery[Object, List[Object]] {
-      override def execute(value: Object, path: String): Option[List[Object]] =
-        FieldsByPath[Object](value, path)
+  implicit val objectListJsonNodeQuery: NaviPathQuery[JsonNode, List[JsonNode]] =
+    new NaviPathQuery[JsonNode, List[JsonNode]] {
+      override def execute(value: JsonNode, path: String): Option[List[JsonNode]] =
+        FieldsByPath[JsonNode](value, path)
     }
 
   // for parsed JsonObject form of Json
 
   implicit val stringJsonWriter: JsonWriter[String] = new JsonWriter[String] {
-    override def write(value: String): AnyRef =
-      (new ObjectMapper).readValue(value, classOf[Object])
+    override def write(value: String): JsonNode =
+      (new ObjectMapper).readValue(value, classOf[JsonNode])
   }
 
   // syntax ifc
 
-  implicit class NaviPathWriterOps[A](value: A) {
+  implicit class NaviPathWriterOps[A: ClassTag](value: A) {
 
-    def query[B](path: String)(implicit w: NaviPathQuery[A, B]): Option[B] =
+    def query[B: ClassTag](path: String)(implicit w: NaviPathQuery[A, B]): Option[B] =
       w.execute(value, path)
 
-    def asJson(implicit w: JsonWriter[A]): Object = w.write(value)
+    def asJson(implicit w: JsonWriter[A]): JsonNode = w.write(value)
 
   }
 
