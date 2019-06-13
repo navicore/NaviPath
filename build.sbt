@@ -14,9 +14,8 @@ javaOptions in test ++= Seq(
 
 parallelExecution in test := false
 
-val scala211 = "2.11.12"
-val scala212 = "2.12.7"
-crossScalaVersions := Seq(scala211, scala212)
+val scala212 = "2.12.8"
+crossScalaVersions := Seq(scala212)
 
 inThisBuild(List(
   organization := "tech.navicore",

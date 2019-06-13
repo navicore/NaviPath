@@ -9,15 +9,15 @@ import scala.reflect.ClassTag
 object FieldsByPath {
 
   def jsonToBaseType[T](ids: Seq[JsonNode])(implicit ct: ClassTag[T]): Seq[T] = ids match {
-    case ids: Seq[TextNode] if ids.nonEmpty && ids.head.getClass == classOf[TextNode] && ct.runtimeClass ==  classOf[String] =>
+    case _ if ids.nonEmpty && ids.head.getClass == classOf[TextNode] && ct.runtimeClass ==  classOf[String] =>
       ids.map(_.asText().asInstanceOf[T])
-    case ids: Seq[IntNode] if ids.nonEmpty && ids.head.getClass == classOf[IntNode] && ct.runtimeClass == classOf[Int] =>
+    case _ if ids.nonEmpty && ids.head.getClass == classOf[IntNode] && ct.runtimeClass == classOf[Int] =>
       ids.map(_.asInt().asInstanceOf[T])
-    case ids: Seq[IntNode] if ids.nonEmpty && ids.head.getClass == classOf[IntNode] && ct.runtimeClass == classOf[Long] =>
+    case _ if ids.nonEmpty && ids.head.getClass == classOf[IntNode] && ct.runtimeClass == classOf[Long] =>
       ids.map(_.asLong().asInstanceOf[T])
-    case ids: Seq[LongNode] if ids.nonEmpty && ids.head.getClass == classOf[LongNode] && ct.runtimeClass == classOf[Long] =>
+    case _ if ids.nonEmpty && ids.head.getClass == classOf[LongNode] && ct.runtimeClass == classOf[Long] =>
       ids.map(_.asLong().asInstanceOf[T])
-    case ids: Seq[DoubleNode] if ids.nonEmpty && ids.head.getClass == classOf[DoubleNode] && ct.runtimeClass == classOf[Double] =>
+    case _ if ids.nonEmpty && ids.head.getClass == classOf[DoubleNode] && ct.runtimeClass == classOf[Double] =>
       ids.map(_.asDouble().asInstanceOf[T])
     case _ =>
       ids.map(_.asInstanceOf[T])

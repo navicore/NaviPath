@@ -10,15 +10,15 @@ object FieldByPath {
 
   def jsonToBaseType[T](ids: Seq[JsonNode])(implicit ct: ClassTag[T]): Option[T] = {
     ids match {
-      case ids: Seq[IntNode] if ids.nonEmpty && ids.head.getClass == classOf[IntNode] && ct.runtimeClass == classOf[Int] =>
+      case _ if ids.nonEmpty && ids.head.getClass == classOf[IntNode] && ct.runtimeClass == classOf[Int] =>
         ids.headOption.map(_.asInt().asInstanceOf[T])
-      case ids: Seq[TextNode] if ids.nonEmpty && ids.head.getClass == classOf[TextNode] && ct.runtimeClass == classOf[String] =>
+      case _ if ids.nonEmpty && ids.head.getClass == classOf[TextNode] && ct.runtimeClass == classOf[String] =>
         ids.headOption.map(_.asText().asInstanceOf[T])
-      case ids: Seq[IntNode] if ids.nonEmpty && ids.head.getClass == classOf[IntNode] && ct.runtimeClass == classOf[Long] =>
+      case _ if ids.nonEmpty && ids.head.getClass == classOf[IntNode] && ct.runtimeClass == classOf[Long] =>
         ids.headOption.map(_.asLong().asInstanceOf[T])
-      case ids: Seq[LongNode] if ids.nonEmpty && ids.head.getClass == classOf[LongNode] && ct.runtimeClass == classOf[Long] =>
+      case _ if ids.nonEmpty && ids.head.getClass == classOf[LongNode] && ct.runtimeClass == classOf[Long] =>
         ids.headOption.map(_.asLong().asInstanceOf[T])
-      case ids: Seq[DoubleNode] if ids.nonEmpty && ids.head.getClass == classOf[DoubleNode] && ct.runtimeClass == classOf[Double] =>
+      case _ if ids.nonEmpty && ids.head.getClass == classOf[DoubleNode] && ct.runtimeClass == classOf[Double] =>
         ids.headOption.map(_.asDouble().asInstanceOf[T])
       case _ =>
         ids.headOption.map(_.asInstanceOf[T])
