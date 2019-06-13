@@ -101,14 +101,6 @@ class V2Spec extends FlatSpec {
 
   }
 
-  "An obj" should "parse" in {
-
-    //val results = jsonString.asJson
-
-    //assert(results.getClass.getName == "java.util.LinkedHashMap")
-
-  }
-
   "A parsed obj" should "be able to be queried multiple times" in {
 
     val parsedJson = jsonString.asJson
