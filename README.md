@@ -7,10 +7,9 @@ NaviPath
 A lib for adding implicit [JsonPath](http://jsonpath.com/) functions to Strings
 ======
 
-Based on https://github.com/gatling/jsonpath.  I've embedded the code from gatling
-instead of adding the maven binary dependency in order to maintain 2.11 support.
+Based on https://github.com/gatling/jsonpath.
 
-See http://goessner.net/articles/JsonPath/ for path documentation.
+See http://goessner.net/articles/JsonPath/ for jsonpath documentation.
 
 ## INSTALL
 
