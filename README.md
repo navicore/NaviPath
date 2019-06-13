@@ -14,11 +14,12 @@ See http://goessner.net/articles/JsonPath/ for path documentation.
 
 ## INSTALL
 
-* for scala 2.11 (as of version 0.2.0) and 2.12
+* for scala 2.12
+* if you use scala 2.11 - use version 2.1.0
 
 ```
 // https://mvnrepository.com/artifact/tech.navicore/navipath
-libraryDependencies += "tech.navicore" %% "navipath" % "2.1.0"
+libraryDependencies += "tech.navicore" %% "navipath" % "3.0.1"
 ```
 
 ## USAGE
@@ -33,6 +34,7 @@ See http://goessner.net/articles/JsonPath/ for JsonPath documentation.
     val jsonString = """{"name": "Ishmael"}"""
     import navicore.data.navipath.dsl.NaviPathDslV1._
     val result = query path [String] "$.name" in jsonString
+    result should be ('defined)
     result.fold()(assertResult("Ishmael"))
 ```
 
@@ -52,6 +54,7 @@ First match support:
     val jsonString = """{"name": "Ishmael"}"""
     import navicore.data.navipath.dsl.NaviPathSyntax._
     val result = jsonString.query[String]("$.name")
+    result should be ('defined)
     result.fold()(assertResult("Ishmael"))
 ```
 
