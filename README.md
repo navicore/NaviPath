@@ -7,7 +7,7 @@ NaviPath
 A lib for adding implicit [JsonPath](http://jsonpath.com/) functions to Strings
 ======
 
-Based on https://github.com/gatling/jsonpath.
+Based on https://github.com/gatling/jsonpath. I've embedded the code from gatling instead of adding the maven binary dependency in order to support more scala versions via cross compile.
 
 See http://goessner.net/articles/JsonPath/ for jsonpath documentation.
 
@@ -18,7 +18,7 @@ See http://goessner.net/articles/JsonPath/ for jsonpath documentation.
 
 ```
 // https://mvnrepository.com/artifact/tech.navicore/navipath
-libraryDependencies += "tech.navicore" %% "navipath" % "3.0.1"
+libraryDependencies += "tech.navicore" %% "navipath" % "3.0.2"
 ```
 
 ## USAGE
