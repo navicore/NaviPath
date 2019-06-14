@@ -2,7 +2,7 @@ package navicore.data.navipath
 
 import com.fasterxml.jackson.databind.node._
 import com.fasterxml.jackson.databind.{JsonNode, ObjectMapper}
-import io.gatling.jsonpath._
+import navicore.data.jsonpath._
 
 import scala.reflect.ClassTag
 

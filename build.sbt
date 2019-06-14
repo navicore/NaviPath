@@ -14,8 +14,9 @@ javaOptions in test ++= Seq(
 
 parallelExecution in test := false
 
+val scala213 = "2.13.0"
 val scala212 = "2.12.8"
-crossScalaVersions := Seq(scala212)
+crossScalaVersions := Seq(scala213, scala212)
 
 inThisBuild(List(
   organization := "tech.navicore",
@@ -34,7 +35,6 @@ inThisBuild(List(
 libraryDependencies ++=
   Seq(
 
-    "io.gatling" %% "jsonpath" % "0.7.0",
     "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.9",
     "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.9",
     
