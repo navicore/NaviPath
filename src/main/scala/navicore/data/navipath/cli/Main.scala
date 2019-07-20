@@ -28,10 +28,15 @@ object Main extends App {
       .continually(scala.io.StdIn.readLine())
       .takeWhile(_ != null)
       .foreach(l => {
-        val r = l.query[String](conf.path.getOrElse("."))
-        r match {
-          case Some(text) => println(text)
-          case _ =>
+        try {
+          val r = l.query[String](conf.path.getOrElse("."))
+          r match {
+            case Some(text) => println(text)
+            case _          =>
+          }
+        } catch {
+          case e: Throwable =>
+            System.err.println(s"failed $e ${e.getClass} on json: $l")
         }
       })
 
@@ -40,10 +45,15 @@ object Main extends App {
       .continually(scala.io.StdIn.readLine())
       .takeWhile(_ != null)
       .mkString
-    val r = lines.query[String](conf.path.getOrElse("."))
-    r match {
-      case Some(text) => println(text)
-      case _ =>
+    try {
+      val r = lines.query[String](conf.path.getOrElse("."))
+      r match {
+        case Some(text) => println(text)
+        case _          =>
+      }
+    } catch {
+      case e: Throwable =>
+        System.err.println(s"failed $e ${e.getClass} on json")
     }
   }
 
