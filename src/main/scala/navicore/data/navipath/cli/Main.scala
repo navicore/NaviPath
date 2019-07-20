@@ -15,12 +15,16 @@ object Main extends App {
       opt[Boolean](required = false, descr = "query is for integer type")
     val double: ScallopOption[Boolean] =
       opt[Boolean](required = false, descr = "query is for double type")
-    val path: ScallopOption[String] =
-      trailArg[String](required = true, descr = "jsonpath")
+    val paths: ScallopOption[List[String]] =
+      trailArg[List[String]](
+        required = true,
+        descr = "jsonpaths space delimited - results will be comma delimited")
     verify()
   }
 
   val conf = new Conf(args)
+  val paths = conf.paths.getOrElse(List("."))
+  val lastPath = paths.last
 
   if (conf.jsonl()) {
 
@@ -28,23 +32,29 @@ object Main extends App {
       .continually(scala.io.StdIn.readLine())
       .takeWhile(_ != null)
       .foreach(l => {
-        val r = l.query[String](conf.path.getOrElse("."))
-        r match {
-          case Some(text) => println(text)
-          case _ =>
-        }
+        paths.foreach(path => {
+          val r = l.query[String](path)
+          r match {
+            case Some(text) if path != lastPath => print(s"$text,")
+            case Some(text) => println(s"$text")
+            case _          =>
+          }
+        })
       })
 
   } else {
+
     val lines = Iterator
       .continually(scala.io.StdIn.readLine())
       .takeWhile(_ != null)
       .mkString
-    val r = lines.query[String](conf.path.getOrElse("."))
-    r match {
-      case Some(text) => println(text)
-      case _ =>
-    }
+    paths.foreach(path => {
+      val r = lines.query[String](path)
+      r match {
+        case Some(text) => println(text)
+        case _          =>
+      }
+    })
   }
 
 }
