@@ -35,6 +35,7 @@ inThisBuild(List(
 libraryDependencies ++=
   Seq(
 
+    "org.rogach" %% "scallop" % "3.3.1",
     "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.9.1",
     "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.9",
     
@@ -44,6 +45,7 @@ libraryDependencies ++=
 
   )
 
+mainClass in assembly := Some("navicore.data.navipath.cli.Main")
 assemblyJarName in assembly := "NaviPath.jar"
 
 assemblyMergeStrategy in assembly := {
