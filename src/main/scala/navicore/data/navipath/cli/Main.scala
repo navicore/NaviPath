@@ -32,14 +32,20 @@ object Main extends App {
       .continually(scala.io.StdIn.readLine())
       .takeWhile(_ != null)
       .foreach(l => {
-        paths.foreach(path => {
-          val r = l.query[String](path)
-          r match {
-            case Some(text) if path != lastPath => print(s"$text,")
-            case Some(text) => println(s"$text")
-            case _          =>
-          }
-        })
+        try {
+          val parsedJson = l.asJson
+          paths.foreach(path => {
+            val r = parsedJson.query[String](path)
+            r match {
+              case Some(text) if path != lastPath => print(s"$text,")
+              case Some(text)                     => println(s"$text")
+              case _                              =>
+            }
+          })
+        } catch {
+          case e: Throwable =>
+            System.err.println(s"failed - exception: [${e.getClass}] - description: $e - on input: $l")
+        }
       })
 
   } else {
@@ -48,13 +54,18 @@ object Main extends App {
       .continually(scala.io.StdIn.readLine())
       .takeWhile(_ != null)
       .mkString
-    paths.foreach(path => {
-      val r = lines.query[String](path)
-      r match {
-        case Some(text) => println(text)
-        case _          =>
-      }
-    })
+    try {
+      paths.foreach(path => {
+        val r = lines.query[String](path)
+        r match {
+          case Some(text) => println(text)
+          case _          =>
+        }
+      })
+    } catch {
+      case e: Throwable =>
+        System.err.println(s"failed $e ${e.getClass} on json")
+    }
   }
 
 }
