@@ -40,7 +40,7 @@ object Main extends App {
               case Some(text) if path != lastPath => print(s"$text,")
               case Some(text)                     => println(s"$text")
               case _          if path != lastPath => print(s",")
-              case _                              =>
+              case _                              => println("")
             }
           })
         } catch {
