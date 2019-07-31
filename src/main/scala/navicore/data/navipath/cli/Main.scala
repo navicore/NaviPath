@@ -39,6 +39,7 @@ object Main extends App {
             r match {
               case Some(text) if path != lastPath => print(s"$text,")
               case Some(text)                     => println(s"$text")
+              case _          if path != lastPath => print(s",")
               case _                              =>
             }
           })
@@ -46,6 +47,7 @@ object Main extends App {
           case e: Throwable =>
             System.err.println(s"failed - exception: [${e.getClass}] - description: $e - on input: $l")
         }
+        l
       })
 
   } else {
