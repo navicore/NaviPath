@@ -9,16 +9,10 @@ object Main extends App {
     val jsonl: ScallopOption[Boolean] = opt[Boolean](
       required = false,
       descr = "format as jsonl (json record per line)")
-    val string: ScallopOption[Boolean] =
-      opt[Boolean](required = false, descr = "query is for string type")
-    val int: ScallopOption[Boolean] =
-      opt[Boolean](required = false, descr = "query is for integer type")
-    val double: ScallopOption[Boolean] =
-      opt[Boolean](required = false, descr = "query is for double type")
     val paths: ScallopOption[List[String]] =
       trailArg[List[String]](
         required = true,
-        descr = "jsonpaths space delimited - results will be comma delimited")
+        descr = "jsonpaths space delimited - results will be comma delimited.  prefix path with d for double and i for int.  ie: d$.mypath.mydouble")
     verify()
   }
 
@@ -35,7 +29,14 @@ object Main extends App {
         try {
           val parsedJson = l.asJson
           paths.foreach(path => {
-            val r = parsedJson.query[String](path)
+            val r = path.charAt(0) match {
+              case 'i' =>
+                parsedJson.query[Int](path.substring(1))
+              case 'd' =>
+                parsedJson.query[Double](path.substring(1))
+              case _ =>
+                parsedJson.query[String](path)
+            }
             r match {
               case Some(text) if path != lastPath => print(s"$text,")
               case Some(text)                     => println(s"$text")
