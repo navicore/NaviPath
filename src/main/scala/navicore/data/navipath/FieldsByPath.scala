@@ -17,6 +17,8 @@ object FieldsByPath {
       ids.map(_.asLong().asInstanceOf[T])
     case _ if ids.nonEmpty && ids.head.getClass == classOf[LongNode] && ct.runtimeClass == classOf[Long] =>
       ids.map(_.asLong().asInstanceOf[T])
+    case _ if ids.nonEmpty && ids.head.getClass == classOf[BooleanNode] && ct.runtimeClass == classOf[Boolean] =>
+      ids.map(_.asBoolean().asInstanceOf[T])
     case _ if ids.nonEmpty && ids.head.getClass == classOf[DoubleNode] && ct.runtimeClass == classOf[Double] =>
       ids.map(_.asDouble().asInstanceOf[T])
     case _ =>
