@@ -40,6 +40,15 @@ class V2Spec extends FlatSpec {
 
   }
 
+  "An obj" should "handle boolean query" in {
+
+    val isTall = jsonString.query[Boolean]("$.widget.isTall")
+
+    assert(isTall.nonEmpty)
+    isTall.fold()(assertResult(true))
+
+  }
+
   "An obj" should "handle double query" in {
 
     val height = jsonString.query[Double]("$.widget.dval")
