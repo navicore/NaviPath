@@ -1,5 +1,6 @@
 {"widget": {
   "debug": "on",
+  "isTall": true,
   "lval": 110000000,
   "dval": 11.123,
   "window": {
