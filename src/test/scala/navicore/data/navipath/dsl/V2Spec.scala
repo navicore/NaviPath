@@ -133,4 +133,17 @@ class V2Spec extends FlatSpec {
 
   }
 
+  "A parsed obj" should "be tested for presence of field" in {
+
+    val parsedJson = jsonString.asJson
+
+    val height = parsedJson.query[Object]("$.widget.window.height")
+    assert(height.nonEmpty)
+    height.fold()(r => assert(r.toString == 500.toString))
+
+    assert( parsedJson.query[Object]("$.widget.window.height").nonEmpty )
+    assert( parsedJson.query[Object]("$.widget.window.nothhere").isEmpty )
+
+  }
+
 }
