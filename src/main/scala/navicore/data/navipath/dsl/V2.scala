@@ -82,6 +82,17 @@ object NaviPathSyntax {
         FieldByPath[Double](value, path)
     }
 
+  implicit val objectStringQuery: NaviPathQuery[String, Object] =
+    new NaviPathQuery[String, Object] {
+      override def execute(value: String, path: String): Option[Object] =
+        FieldByPath[Object](value, path)
+    }
+  implicit val objectJsonNodeQuery: NaviPathQuery[JsonNode, Object] =
+    new NaviPathQuery[JsonNode, Object] {
+      override def execute(value: JsonNode, path: String): Option[Object] =
+        FieldByPath[String](value, path)
+    }
+
   implicit val stringListStringQuery: NaviPathQuery[String, List[String]] =
     new NaviPathQuery[String, List[String]] {
       override def execute(value: String, path: String): Option[List[String]] =
