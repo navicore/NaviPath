@@ -37,7 +37,7 @@ libraryDependencies ++=
 
     "org.rogach" %% "scallop" % "3.3.1",
     "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.9.3",
-    "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.9",
+    "com.fasterxml.jackson.core" % "jackson-annotations" % "2.9.10",
     
     "org.scala-lang.modules" %% "scala-parser-combinators"  % "1.1.2",
 
