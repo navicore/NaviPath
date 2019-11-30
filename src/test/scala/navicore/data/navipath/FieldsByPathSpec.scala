@@ -5,8 +5,9 @@ import java.io.InputStream
 import org.scalatest._
 
 import scala.io.Source
+import org.scalatest.flatspec.AnyFlatSpec
 
-class FieldsByPathSpec extends FlatSpec {
+class FieldsByPathSpec extends AnyFlatSpec {
 
   val stream : InputStream = getClass.getResourceAsStream("/widget.json")
   val jsonString: String = Source.fromInputStream(stream).mkString
