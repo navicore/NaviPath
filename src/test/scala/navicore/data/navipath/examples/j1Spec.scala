@@ -6,8 +6,9 @@ import navicore.data.navipath.dsl.NaviPathSyntax._
 import org.scalatest._
 
 import scala.io.Source
+import org.scalatest.flatspec.AnyFlatSpec
 
-class j1Spec extends FlatSpec {
+class j1Spec extends AnyFlatSpec {
 
   val stream : InputStream = getClass.getResourceAsStream("/examples/j1.json")
   val jsonString: String = Source.fromInputStream(stream).mkString

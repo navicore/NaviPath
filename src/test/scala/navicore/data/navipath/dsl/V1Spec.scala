@@ -6,8 +6,9 @@ import navicore.data.navipath.dsl.NaviPathDslV1._
 import org.scalatest._
 
 import scala.io.Source
+import org.scalatest.flatspec.AnyFlatSpec
 
-class V1Spec extends FlatSpec {
+class V1Spec extends AnyFlatSpec {
 
   val stream : InputStream = getClass.getResourceAsStream("/widget.json")
   val jsonString: String = Source.fromInputStream(stream).mkString
