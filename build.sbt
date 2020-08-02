@@ -36,8 +36,8 @@ libraryDependencies ++=
   Seq(
 
     "org.rogach" %% "scallop" % "3.5.0",
-    "com.fasterxml.jackson.core" % "jackson-databind" % "2.11.1",
-    "com.fasterxml.jackson.core" % "jackson-annotations" % "2.11.1",
+    "com.fasterxml.jackson.core" % "jackson-databind" % "2.11.2",
+    "com.fasterxml.jackson.core" % "jackson-annotations" % "2.11.2",
     
     "org.scala-lang.modules" %% "scala-parser-combinators"  % "1.1.2",
 
