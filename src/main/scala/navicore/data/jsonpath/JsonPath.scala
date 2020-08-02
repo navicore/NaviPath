@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 GatlingCorp (https://gatling.io)
+ * Copyright 2011-2020 GatlingCorp (https://gatling.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,17 @@ package navicore.data.jsonpath
 
 import scala.collection.JavaConverters._
 import scala.math.abs
+
 import navicore.data.jsonpath.AST._
+
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeType._
 
-case class JPError(reason: String)
+final case class JPError(reason: String)
 
+/**
+ * Originally contributed by Nicolas Rémond.
+ */
 object JsonPath {
   private val JsonPathParser = ThreadLocal.withInitial[Parser](() => new Parser)
 
@@ -45,6 +50,7 @@ class JsonPathWalker(rootNode: JsonNode, fullPath: List[PathToken]) {
 
   def walk(): Iterator[JsonNode] = walk(rootNode, fullPath)
 
+  @SuppressWarnings(Array("org.wartremover.warts.Recursion"))
   private[this] def walk(node: JsonNode, path: List[PathToken]): Iterator[JsonNode] =
     path match {
       case head :: tail => walk1(node, head).flatMap(walk(_, tail))
@@ -53,7 +59,7 @@ class JsonPathWalker(rootNode: JsonNode, fullPath: List[PathToken]) {
 
   private[this] def walk1(node: JsonNode, query: PathToken): Iterator[JsonNode] =
     query match {
-      case RootNode    => Iterator.single(rootNode)
+      case RootNode => Iterator.single(rootNode)
 
       case CurrentNode => Iterator.single(node)
 
@@ -74,7 +80,12 @@ class JsonPathWalker(rootNode: JsonNode, fullPath: List[PathToken]) {
       case MultiField(fieldNames) =>
         if (node.getNodeType == OBJECT) {
           // don't use collect on iterator with filter causes (executed twice)
-          fieldNames.iterator.flatMap(name => Option(node.get(name)))
+          fieldNames.iterator.flatMap { name =>
+            node.get(name) match {
+              case null  => Nil
+              case child => child :: Nil
+            }
+          }
         } else {
           Iterator.empty
         }
@@ -112,9 +123,9 @@ class JsonPathWalker(rootNode: JsonNode, fullPath: List[PathToken]) {
 
       case RecursiveFilterToken(filterToken) => new RecursiveDataIterator(node).flatMap(applyFilter(_, filterToken))
 
-      case filterToken: FilterToken          => applyFilter(node, filterToken)
+      case filterToken: FilterToken => applyFilter(node, filterToken)
 
-      case RecursiveAnyField                 => new RecursiveNodeIterator(node)
+      case RecursiveAnyField => new RecursiveNodeIterator(node)
     }
 
   private[this] def applyFilter(currentNode: JsonNode, filterToken: FilterToken): Iterator[JsonNode] = {
@@ -143,6 +154,7 @@ class JsonPathWalker(rootNode: JsonNode, fullPath: List[PathToken]) {
         case _      => Iterator.empty
       }
 
+    @SuppressWarnings(Array("org.wartremover.warts.Recursion"))
     def evaluateFilter(filterToken: FilterToken): JsonNode => Boolean =
       filterToken match {
         case HasFilter(subQuery) =>

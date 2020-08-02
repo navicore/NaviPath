@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 GatlingCorp (https://gatling.io)
+ * Copyright 2011-2020 GatlingCorp (https://gatling.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,13 @@
 
 package navicore.data.jsonpath
 
-import com.fasterxml.jackson.databind.JsonNode
-
 import scala.collection.AbstractIterator
 
+import com.fasterxml.jackson.databind.JsonNode
+
+/**
+ * Originally contributed by Nicolas Rémond.
+ */
 abstract class RecursiveIterator[T](root: JsonNode) extends AbstractIterator[JsonNode] {
 
   protected var nextNode: JsonNode = _
