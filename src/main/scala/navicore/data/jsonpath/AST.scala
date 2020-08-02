@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 GatlingCorp (https://gatling.io)
+ * Copyright 2011-2020 GatlingCorp (https://gatling.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,20 @@ package navicore.data.jsonpath
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.{ BooleanNode, DoubleNode, LongNode, NullNode, TextNode }
 
+/**
+ * Originally contributed by Nicolas Rémond.
+ */
 object AST {
-  sealed trait AstToken
+  sealed trait AstToken extends Product with Serializable
   sealed trait PathToken extends AstToken
 
   sealed trait FieldAccessor extends PathToken
   case object RootNode extends FieldAccessor
-  case class Field(name: String) extends FieldAccessor
-  case class RecursiveField(name: String) extends FieldAccessor
-  case class MultiField(names: List[String]) extends FieldAccessor
-  case object AnyField extends FieldAccessor
-  case object RecursiveAnyField extends FieldAccessor
+  final case class Field(name: String) extends FieldAccessor
+  final case class RecursiveField(name: String) extends FieldAccessor
+  final case class MultiField(names: List[String]) extends FieldAccessor
+  final case object AnyField extends FieldAccessor
+  final case object RecursiveAnyField extends FieldAccessor
 
   sealed trait ArrayAccessor extends PathToken
 
@@ -40,34 +43,34 @@ object AST {
    * @param stop is the first item that you do not want
    * @param step, being positive or negative, defines whether you are moving
    */
-  case class ArraySlice(start: Option[Int], stop: Option[Int], step: Int = 1) extends ArrayAccessor
+  final case class ArraySlice(start: Option[Int], stop: Option[Int], step: Int) extends ArrayAccessor
   object ArraySlice {
-    val All = ArraySlice(None, None)
+    val All: ArraySlice = ArraySlice(None, None, 1)
   }
-  case class ArrayRandomAccess(indices: List[Int]) extends ArrayAccessor
+  final case class ArrayRandomAccess(indices: List[Int]) extends ArrayAccessor
 
   // JsonPath Filter AST //////////////////////////////////////////////
 
-  case object CurrentNode extends PathToken
+  final case object CurrentNode extends PathToken
   sealed trait FilterValue extends AstToken
 
   object FilterDirectValue {
-    def long(value: Long) = FilterDirectValue(new LongNode(value))
-    def double(value: Double) = FilterDirectValue(new DoubleNode(value))
-    val True = FilterDirectValue(BooleanNode.TRUE)
-    val False = FilterDirectValue(BooleanNode.FALSE)
-    def string(value: String) = FilterDirectValue(new TextNode(value))
-    val Null = FilterDirectValue(NullNode.instance)
+    def long(value: Long): FilterDirectValue = FilterDirectValue(new LongNode(value))
+    def double(value: Double): FilterDirectValue = FilterDirectValue(new DoubleNode(value))
+    val True: FilterDirectValue = FilterDirectValue(BooleanNode.TRUE)
+    val False: FilterDirectValue = FilterDirectValue(BooleanNode.FALSE)
+    def string(value: String): FilterDirectValue = FilterDirectValue(new TextNode(value))
+    val Null: FilterDirectValue = FilterDirectValue(NullNode.instance)
   }
 
-  case class FilterDirectValue(node: JsonNode) extends FilterValue
+  final case class FilterDirectValue(node: JsonNode) extends FilterValue
 
-  case class SubQuery(path: List[PathToken]) extends FilterValue
+  final case class SubQuery(path: List[PathToken]) extends FilterValue
 
   sealed trait FilterToken extends PathToken
-  case class HasFilter(query: SubQuery) extends FilterToken
-  case class ComparisonFilter(operator: ComparisonOperator, lhs: FilterValue, rhs: FilterValue) extends FilterToken
-  case class BooleanFilter(operator: BinaryBooleanOperator, lhs: FilterToken, rhs: FilterToken) extends FilterToken
+  final case class HasFilter(query: SubQuery) extends FilterToken
+  final case class ComparisonFilter(operator: ComparisonOperator, lhs: FilterValue, rhs: FilterValue) extends FilterToken
+  final case class BooleanFilter(operator: BinaryBooleanOperator, lhs: FilterToken, rhs: FilterToken) extends FilterToken
 
-  case class RecursiveFilterToken(filter: FilterToken) extends PathToken
+  final case class RecursiveFilterToken(filter: FilterToken) extends PathToken
 }

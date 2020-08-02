@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 GatlingCorp (https://gatling.io)
+ * Copyright 2011-2020 GatlingCorp (https://gatling.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,26 @@
 
 package navicore.data.jsonpath
 
-import java.lang.{ StringBuilder => JStringBuilder }
+import java.{ lang => jl }
 
 import scala.util.parsing.combinator.RegexParsers
 
 import navicore.data.jsonpath.AST._
 
-class StringBuilderPool extends ThreadLocal[JStringBuilder] {
+class StringBuilderPool extends ThreadLocal[jl.StringBuilder] {
 
-  override def initialValue() = new JStringBuilder(512)
+  override def initialValue() = new jl.StringBuilder(512)
 
-  override def get(): JStringBuilder = {
+  override def get(): jl.StringBuilder = {
     val sb = super.get()
     sb.setLength(0)
     sb
   }
 }
 
+/**
+ * Originally contributed by Nicolas Rémond.
+ */
 object Parser extends RegexParsers {
 
   private val stringBuilderPool = new StringBuilderPool
@@ -109,8 +112,8 @@ object Parser extends RegexParsers {
 
   /// filters parsers ///////////////////////////////////////////////////////
 
-  private def numberValue: Parser[FilterDirectValue] = NumberValueRegex ^^ {
-    s => if (s.indexOf('.') != -1) FilterDirectValue.double(s.toDouble) else FilterDirectValue.long(s.toLong)
+  private def numberValue: Parser[FilterDirectValue] = NumberValueRegex ^^ { s =>
+    if (s.indexOf('.') != -1) FilterDirectValue.double(s.toDouble) else FilterDirectValue.long(s.toLong)
   }
 
   private def booleanValue: Parser[FilterDirectValue] =
@@ -151,6 +154,7 @@ object Parser extends RegexParsers {
 
   private def booleanOperator: Parser[BinaryBooleanOperator] = "&&" ^^^ AndOperator | "||" ^^^ OrOperator
 
+  @SuppressWarnings(Array("org.wartremover.warts.Recursion"))
   private def booleanExpression: Parser[FilterToken] =
     expression ~ (booleanOperator ~ booleanExpression).? ^^ {
       case lhs ~ None => lhs
@@ -188,11 +192,11 @@ object Parser extends RegexParsers {
 
   private[jsonpath] def fieldAccessors = (
     dotField
-    | recursiveSubscriptFilter
-    | recursiveAny
-    | recursiveField
-    | anyChild
-    | subscriptField
+      | recursiveSubscriptFilter
+      | recursiveAny
+      | recursiveField
+      | anyChild
+      | subscriptField
   )
 
   /// Main parsers //////////////////////////////////////////////////////////
