@@ -35,7 +35,7 @@ inThisBuild(List(
 libraryDependencies ++=
   Seq(
 
-    "org.rogach" %% "scallop" % "3.5.1",
+    "org.rogach" %% "scallop" % "4.0.1",
     "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.0",
     "com.fasterxml.jackson.core" % "jackson-annotations" % "2.12.0",
     
