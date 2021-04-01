@@ -40,7 +40,7 @@ libraryDependencies ++=
     "com.fasterxml.jackson.core" % "jackson-annotations" % "2.12.2",    
     "org.scala-lang.modules" %% "scala-parser-combinators"  % "1.1.2",
 
-    "org.scalatest" %% "scalatest" % "3.2.6" % "test"
+    "org.scalatest" %% "scalatest" % "3.2.7" % "test"
 
   )
 
