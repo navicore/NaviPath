@@ -8,11 +8,14 @@ object Main extends App {
   class Conf(arguments: Seq[String]) extends ScallopConf(arguments) {
     val jsonl: ScallopOption[Boolean] = opt[Boolean](
       required = false,
-      descr = "format as jsonl (json record per line)")
+      descr = "format as jsonl (json record per line)"
+    )
     val paths: ScallopOption[List[String]] =
       trailArg[List[String]](
         required = true,
-        descr = "jsonpaths space delimited - results will be comma delimited.  prefix path with d for double and i for int.  ie: d$.mypath.mydouble")
+        descr =
+          "jsonpaths space delimited - results will be comma delimited.  prefix path with d for double and i for int.  ie: d$.mypath.mydouble"
+      )
     verify()
   }
 
@@ -40,13 +43,15 @@ object Main extends App {
             r match {
               case Some(text) if path != lastPath => print(s"$text,")
               case Some(text)                     => println(s"$text")
-              case _          if path != lastPath => print(s",")
+              case _ if path != lastPath          => print(s",")
               case _                              => println("")
             }
           })
         } catch {
           case e: Throwable =>
-            System.err.println(s"failed - exception: [${e.getClass}] - description: $e - on input: $l")
+            System.err.println(
+              s"failed - exception: [${e.getClass}] - description: $e - on input: $l"
+            )
         }
         l
       })
