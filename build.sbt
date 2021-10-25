@@ -24,7 +24,7 @@ ThisBuild / publishTo := Some(
 
 inThisBuild(
   List(
-    organization := "navicore",
+    organization := "tech.navicore",
     homepage := Some(url("https://github.com/navicore/navipath")),
     licenses := List(
       "Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")
