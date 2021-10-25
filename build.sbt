@@ -18,9 +18,10 @@ val scala213 = "2.13.6"
 val scala212 = "2.12.14"
 crossScalaVersions := Seq(scala213, scala212)
 
-ThisBuild / publishTo := Some(
-  "releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-)
+ThisBuild / publishTo := sonatypePublishToBundle.value
+// ThisBuild / publishTo := Some(
+//   "releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+// )
 
 inThisBuild(
   List(
