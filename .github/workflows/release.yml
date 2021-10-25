@@ -12,7 +12,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: olafurpg/setup-scala@v13
-      - run: sbt ci-release
+      - run: sbt ciRelease
         env:
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
