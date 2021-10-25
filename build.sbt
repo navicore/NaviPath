@@ -1,5 +1,4 @@
 name := "NaviPath"
-organization := "tech.navicore"
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 scalacOptions ++= Seq(
   "-target:jvm-1.8"
@@ -25,7 +24,7 @@ ThisBuild / publishTo := Some(
 
 inThisBuild(
   List(
-    organization := "tech.navicore",
+    organization := "navicore",
     homepage := Some(url("https://github.com/navicore/navipath")),
     licenses := List(
       "Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")
