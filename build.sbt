@@ -19,9 +19,6 @@ val scala212 = "2.12.14"
 crossScalaVersions := Seq(scala213, scala212)
 
 ThisBuild / publishTo := sonatypePublishToBundle.value
-// ThisBuild / publishTo := Some(
-//   "releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-// )
 
 inThisBuild(
   List(
@@ -46,7 +43,7 @@ libraryDependencies ++=
     "org.rogach" %% "scallop" % "4.0.4",
     "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.5",
     "com.fasterxml.jackson.core" % "jackson-annotations" % "2.13.0",
-    "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.0",
+    "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2",
     "org.scalatest" %% "scalatest" % "3.2.10" % "test"
   )
 
