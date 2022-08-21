@@ -13,28 +13,29 @@ javaOptions in test ++= Seq(
 
 parallelExecution in test := false
 
-enablePlugins(GitVersioning)
 val scala213 = "2.13.8"
 val scala212 = "2.12.16"
 crossScalaVersions := Seq(scala213, scala212)
 
 ThisBuild / publishTo := sonatypePublishToBundle.value
 
-inThisBuild(
-  List(
-    organization := "tech.navicore",
-    homepage := Some(url("https://github.com/navicore/navipath")),
-    licenses := List(
-      "Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")
-    ),
-    developers := List(
-      Developer(
-        "navicore",
-        "Ed Sweeney",
-        "ed@onextent.com",
-        url("https://navicore.tech")
-      )
-    )
+ThisBuild / organization := "tech.navicore"
+ThisBuild / homepage := Some(url("https://github.com/navicore/navipath"))
+ThisBuild / scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/navicore/navipath"),
+    "scm:git@github.com:navicore/navipath.git"
+  )
+)
+ThisBuild / licenses := List(
+  "Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")
+)
+ThisBuild / developers := List(
+  Developer(
+    "navicore",
+    "Ed Sweeney",
+    "ed@onextent.com",
+    url("https://navicore.tech")
   )
 )
 
