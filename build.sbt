@@ -45,7 +45,7 @@ libraryDependencies ++=
     "com.fasterxml.jackson.core" % "jackson-databind" % "2.15.2",
     "com.fasterxml.jackson.core" % "jackson-annotations" % "2.15.2",
     "org.scala-lang.modules" %% "scala-parser-combinators" % "2.2.0",
-    "org.scalatest" %% "scalatest" % "3.2.15" % "test"
+    "org.scalatest" %% "scalatest" % "3.2.16" % "test"
   )
 
 mainClass in assembly := Some("navicore.data.navipath.cli.Main")
